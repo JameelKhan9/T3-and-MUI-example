@@ -1,7 +1,7 @@
 import { type Config } from "tailwindcss"
 
 export default {
-  important: "#__next",
+	important: "#__next",
 	content: ["./src/**/*.{js,ts,jsx,tsx}"],
 	corePlugins: {
 		preflight: false,
