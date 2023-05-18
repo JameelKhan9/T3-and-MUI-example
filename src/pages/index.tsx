@@ -2,11 +2,33 @@ import { type NextPage } from "next"
 import { signIn, signOut, useSession } from "next-auth/react"
 import Head from "next/head"
 
-import { Box, Button } from "@mui/material"
+import { Icon } from "@iconify-icon/react"
+import {
+	Box,
+	Button,
+	Checkbox,
+	Container,
+	FormControlLabel,
+	FormGroup,
+} from "@mui/material"
 import { api } from "@utils/api"
+
+import React from "react"
 
 const Home: NextPage = () => {
 	const hello = api.example.hello.useQuery({ text: "from tRPC" })
+
+	const [state, setState] = React.useState({
+		checkedA: true,
+		checkedB: true,
+		checkedF: true,
+		checkedG: true,
+	})
+
+	const handleChange =
+		(name: string) => (event: { target: { checked: unknown } }) => {
+			setState({ ...state, [name]: event.target.checked })
+		}
 
 	return (
 		<>
