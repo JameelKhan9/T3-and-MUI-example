@@ -8,7 +8,7 @@ import {
 	Checkbox,
 	Container,
 	FormControlLabel,
-	FormGroup,
+	FormGroup
 } from "@mui/material"
 
 import React from "react"

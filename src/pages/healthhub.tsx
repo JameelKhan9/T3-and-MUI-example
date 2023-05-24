@@ -6,7 +6,9 @@ import {
 	BottomNavigation,
 	BottomNavigationAction,
 	Box,
+	Button,
 	Paper,
+	Typography
 } from "@mui/material"
 
 import React from "react"
@@ -22,6 +24,15 @@ const HealthHub: NextPage = () => {
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
 			<Box sx={{ pb: 7 }}>
+				<Typography variant="h5">
+					Daily check-in
+				</Typography>
+				<Typography variant="body1">
+					Have you checked in today? Keep your streak going!
+				</Typography>
+				<Button variant="contained" sx={{ my: "8px" }}>
+					Complete check-in
+				</Button>
 				<Paper
 					sx={{ position: "fixed", bottom: 0, left: 0, right: 0 }}
 					elevation={3}
