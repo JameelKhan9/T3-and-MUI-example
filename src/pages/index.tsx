@@ -2,33 +2,26 @@ import { type NextPage } from "next"
 import { signIn, signOut, useSession } from "next-auth/react"
 import Head from "next/head"
 
-import { Icon } from "@iconify-icon/react"
+import Link from "@components/atoms/Link"
 import {
 	Box,
 	Button,
-	Checkbox,
-	Container,
-	FormControlLabel,
-	FormGroup,
+	Card,
+	CardActionArea,
+	CardContent,
+	Typography,
 } from "@mui/material"
 import { api } from "@utils/api"
 
-import React from "react"
-
 const Home: NextPage = () => {
+	const { data: sessionData } = useSession()
+
+	const { data: secretMessage } = api.example.getSecretMessage.useQuery(
+		undefined, // no input
+		{ enabled: sessionData?.user !== undefined }
+	)
+
 	const hello = api.example.hello.useQuery({ text: "from tRPC" })
-
-	const [state, setState] = React.useState({
-		checkedA: true,
-		checkedB: true,
-		checkedF: true,
-		checkedG: true,
-	})
-
-	const handleChange =
-		(name: string) => (event: { target: { checked: unknown } }) => {
-			setState({ ...state, [name]: event.target.checked })
-		}
 
 	return (
 		<>
@@ -40,9 +33,11 @@ const Home: NextPage = () => {
 			<Box
 				component="main"
 				sx={{
-					p: 2,
+					px: 4,
+					pt: 4,
+					pb: 8,
 					border: "1px dashed grey",
-					my: 4,
+					m: 4,
 					display: "flex",
 					flexDirection: "column",
 					justifyContent: "center",
@@ -59,7 +54,61 @@ const Home: NextPage = () => {
 					}}
 				>
 					<p>{hello.data ? hello.data.greeting : "Loading tRPC query..."}</p>
-					<AuthShowcase />
+					{sessionData && secretMessage && (
+						<>
+							<p>Logged in as {sessionData.user?.name}.</p>
+							<code>{secretMessage}</code>
+						</>
+					)}
+
+					<Button
+						sx={{ margin: "10px" }}
+						variant="contained"
+						onClick={sessionData ? () => void signOut() : () => void signIn()}
+					>
+						{sessionData ? "Sign out" : "Sign in"}
+					</Button>
+				</Box>
+
+				<Box
+					sx={{
+						display: "flex",
+						flexDirection: "row",
+						gap: "20px",
+						mt: "10px",
+					}}
+				>
+					<Card sx={{ maxWidth: 345 }}>
+						<Link href="/kitchensink" sx={{ textDecoration: "inherit" }}>
+							<CardActionArea sx={{ height: "100%" }}>
+								<CardContent>
+									<Typography gutterBottom variant="h5" component="div">
+										Kitchen Sink
+									</Typography>
+									<Typography variant="body2" color="text.secondary">
+										A playground of themed MUI components
+									</Typography>
+								</CardContent>
+							</CardActionArea>
+						</Link>
+					</Card>
+
+					<Card sx={{ maxWidth: 345 }}>
+						<Link href="/healthhub" sx={{ textDecoration: "none" }}>
+							<CardActionArea>
+								<CardContent>
+									<Typography gutterBottom variant="h5" component="div">
+										health hub
+									</Typography>
+									<Typography variant="body2" color="text.secondary">
+										A mock application empowering individuals to take control of
+										their health and wellness and make it easy to manage their
+										health information.
+									</Typography>
+								</CardContent>
+							</CardActionArea>
+						</Link>
+					</Card>
 				</Box>
 			</Box>
 		</>
@@ -67,29 +116,3 @@ const Home: NextPage = () => {
 }
 
 export default Home
-
-const AuthShowcase: React.FC = () => {
-	const { data: sessionData } = useSession()
-
-	const { data: secretMessage } = api.example.getSecretMessage.useQuery(
-		undefined, // no input
-		{ enabled: sessionData?.user !== undefined }
-	)
-
-	return (
-		<>
-			{sessionData && secretMessage && (
-				<p>
-					<span>Logged in as {sessionData.user?.name}</span>
-					<span> - {secretMessage}</span>
-				</p>
-			)}
-			<Button
-				variant="contained"
-				onClick={sessionData ? () => void signOut() : () => void signIn()}
-			>
-				{sessionData ? "Sign out" : "Sign in"}
-			</Button>
-		</>
-	)
-}

@@ -46,7 +46,7 @@ const KitchenSink: NextPage = () => {
 				}}
 			>
 				<Container maxWidth="sm">
-					<section>
+					<Box component="section" sx={{ display: "flex", gap: "10px" }}>
 						<Button variant="contained">Default</Button>
 						<Button variant="contained" color="primary">
 							Primary
@@ -64,7 +64,7 @@ const KitchenSink: NextPage = () => {
 						>
 							Link
 						</Button>
-					</section>
+					</Box>
 					<section>
 						<FormGroup row>
 							<FormControlLabel
