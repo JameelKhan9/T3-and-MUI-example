@@ -8,7 +8,7 @@ import {
 	Checkbox,
 	Container,
 	FormControlLabel,
-	FormGroup
+	FormGroup,
 } from "@mui/material"
 
 import React from "react"
@@ -36,9 +36,11 @@ const KitchenSink: NextPage = () => {
 			<Box
 				component="main"
 				sx={{
-					p: 2,
+					px: 4,
+					pt: 4,
+					pb: 8,
 					border: "1px dashed grey",
-					my: 4,
+					m: 4,
 					display: "flex",
 					flexDirection: "column",
 					justifyContent: "center",
@@ -129,9 +131,14 @@ const KitchenSink: NextPage = () => {
 								control={
 									<Checkbox
 										icon={
-											<Icon icon="material-symbols:check-box-outline-blank" />
+											<Icon
+												icon="material-symbols:check-box-outline-blank"
+												height={24}
+											/>
 										}
-										checkedIcon={<Icon icon="material-symbols:check-box" />}
+										checkedIcon={
+											<Icon icon="material-symbols:check-box" height={24} />
+										}
 										value="checkedI"
 									/>
 								}
