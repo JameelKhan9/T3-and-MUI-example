@@ -163,15 +163,18 @@ const HealthHub: NextPage = () => {
 				</Typography>
 				<Button variant="contained">Complete check-in</Button>
 
-				<Typography variant="h5" sx={{ my: theme.spacing(2) }}>
+				<Typography variant="h5" sx={{ mt: theme.spacing(2) }}>
 					Medication
 				</Typography>
 				<Box
 					sx={{
 						display: "flex",
 						justifyContent: "space-between",
+						px: "1px",
+						py: theme.spacing(2),
 						gap: theme.spacing(2),
 						mb: theme.spacing(1),
+						overflow: "auto",
 					}}
 				>
 					<Card sx={{ minWidth: theme.spacing(17) }}>
